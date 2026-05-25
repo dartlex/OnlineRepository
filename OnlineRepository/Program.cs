@@ -4,142 +4,175 @@
     {
         static void Main(string[] args)
         {
+            var users = new List<string>();
             while (true)
             {
-                Console.WriteLine($"Здравствуйте! Как вас зовут?");
-                string userName = Console.ReadLine();
-
-                int questionsCount = 5;
-                string[] questions = GetQuestions(questionsCount);
-                int[] answers = GetAnswers(questionsCount);
-
-                int correctAnswersCount = 0;
-
-                Random random = new Random();
-                for (int i = questionsCount - 1; i > 0; i--)
+                if (users.Count > 0)
                 {
-                    int index = random.Next(0, i);
-                    string tempQuestion = questions[index];
-                    questions[index] = questions[i];
-                    questions[i] = tempQuestion;
-
-                    int tempAnswers = answers[index];
-                    answers[index] = answers[i];
-                    answers[i] = tempAnswers;
-                }
-
-                for (int i = 0; i < questionsCount; i++)
-                {
-                    Console.WriteLine("Вопрос №" + (i + 1));
-                    Console.WriteLine(questions[i]);
-                    string userAnswerCheck = "";
-
+                    Console.WriteLine("Хотите посмотреть результаты?");
                     while (true)
                     {
-                        userAnswerCheck = Console.ReadLine();
-                        if (IsCorrectAnswer(userAnswerCheck))
+                        string answer = Console.ReadLine().ToLower();
+                        if (string.IsNullOrWhiteSpace(answer))
                         {
-                            break;
+                            Console.WriteLine("Ответьте Да или Нет");
+                            continue;
                         }
+                        if (answer == "да")
+                        {
+                            ShowUsers(users);
+                        }
+                        break;
                     }
-                    int userAnswer = int.Parse(userAnswerCheck);
-                    int rightAnswer = answers[i];
+                }
+                    Console.WriteLine($"Здравствуйте! Как вас зовут?");
+                    string userName = Console.ReadLine();
 
-                    if (userAnswer == rightAnswer)
+                    int questionsCount = 5;
+                    string[] questions = GetQuestions(questionsCount);
+                    int[] answers = GetAnswers(questionsCount);
+
+                    int correctAnswersCount = 0;
+
+                    Random random = new Random();
+                    for (int i = questionsCount - 1; i > 0; i--)
                     {
-                        correctAnswersCount++;
+                        int index = random.Next(0, i);
+                        string tempQuestion = questions[index];
+                        questions[index] = questions[i];
+                        questions[i] = tempQuestion;
+
+                        int tempAnswers = answers[index];
+                        answers[index] = answers[i];
+                        answers[i] = tempAnswers;
                     }
 
-                }
+                    for (int i = 0; i < questionsCount; i++)
+                    {
+                        Console.WriteLine("Вопрос №" + (i + 1));
+                        Console.WriteLine(questions[i]);
+                        string userAnswerCheck = "";
 
-                Console.WriteLine("Количество правильных ответов: " + correctAnswersCount);
-                string diagnoses = GetDiagnoses(correctAnswersCount, answers.Length);
-                Console.WriteLine($"{userName}, Ваш диагноз: {diagnoses}");
+                        while (true)
+                        {
+                            userAnswerCheck = Console.ReadLine();
+                            if (IsCorrectAnswer(userAnswerCheck))
+                            {
+                                break;
+                            }
+                        }
+                        int userAnswer = int.Parse(userAnswerCheck);
+                        int rightAnswer = answers[i];
 
-                var userChoise = GetUserChoice("Хотите начать сначала?");
-                if (!userChoise)
-                {
-                    break;
+                        if (userAnswer == rightAnswer)
+                        {
+                            correctAnswersCount++;
+                        }
+
+                    }
+
+                    Console.WriteLine("Количество правильных ответов: " + correctAnswersCount);
+                    string diagnoses = GetDiagnoses(correctAnswersCount, answers.Length);
+                    Console.WriteLine($"{userName}, Ваш диагноз: {diagnoses}");
+                    string user = userName + " " + correctAnswersCount.ToString() + " " + diagnoses;
+                    users.Add(user);
+                    var userChoise = GetUserChoice("Хотите начать сначала?");
+                    if (!userChoise)
+                    {
+                        break;
+                    }
                 }
             }
-        }
 
-        static bool IsCorrectAnswer(string userAnswerCheck)
-        {
-            if (string.IsNullOrWhiteSpace(userAnswerCheck))
+            static void ShowUsers(List<string> users)
             {
-                Console.WriteLine("Ответ не может быть пустым или состоящим из пробелов");
-                return false;
-            }
-            foreach (var c in userAnswerCheck)
-            {
-
-                if (!char.IsDigit(c))
+                foreach (var user in users)
                 {
-                    Console.WriteLine("Пожалуйста введите число!");
+                    Console.WriteLine(user);
+                }
+            }
+            static bool IsCorrectAnswer(string userAnswerCheck)
+            {
+                if (string.IsNullOrWhiteSpace(userAnswerCheck))
+                {
+                    Console.WriteLine("Ответ не может быть пустым или состоящим из пробелов");
                     return false;
                 }
-            }
-            return true;
-        }
-
-        static bool GetUserChoice(string message)
-        {
-            while (true)
-            {
-                Console.WriteLine($"{message} Введите Да или Нет");
-                var userInput = Console.ReadLine();
-
-                if (userInput.ToLower() == "нет")
+                foreach (var c in userAnswerCheck)
                 {
-                    return false;
+
+                    if (!char.IsDigit(c))
+                    {
+                        Console.WriteLine("Пожалуйста введите число!");
+                        return false;
+                    }
                 }
-                if (userInput.ToLower() == "да")
-                {
-                    return true;
-                }
+                return true;
             }
-        }
-        static string GetDiagnoses(int correctAnswers, int total)
-        {
-            double percentRight = (double)correctAnswers / total * 100;
-            switch (percentRight)
+
+            static bool GetUserChoice(string message)
             {
-                case < 16: return "Идиот";
-                    break;
-                case >= 17 and <= 33: return "Кретин";
-                    break;
-                case >= 34 and <= 50: return "Дурак";
-                    break;
-                case >= 51 and <= 66: return "Нормальный";
-                    break;
-                case >= 67 and <= 83: return "Талант";
-                    break;
-                default: return "Гений";
-                    break;
+                while (true)
+                {
+                    Console.WriteLine($"{message} Введите Да или Нет");
+                    var userInput = Console.ReadLine();
+
+                    if (userInput.ToLower() == "нет")
+                    {
+                        return false;
+                    }
+                    if (userInput.ToLower() == "да")
+                    {
+                        return true;
+                    }
+                }
             }
-        }
+            static string GetDiagnoses(int correctAnswers, int total)
+            {
+                double percentRight = (double)correctAnswers / total * 100;
+                switch (percentRight)
+                {
+                    case < 16:
+                        return "Идиот";
+                        break;
+                    case >= 17 and <= 33:
+                        return "Кретин";
+                        break;
+                    case >= 34 and <= 50:
+                        return "Дурак";
+                        break;
+                    case >= 51 and <= 66:
+                        return "Нормальный";
+                        break;
+                    case >= 67 and <= 83:
+                        return "Талант";
+                        break;
+                    default:
+                        return "Гений";
+                        break;
+                }
+            }
 
-        static int[] GetAnswers(int questionCount)
-        {
-            int[] answers = new int[questionCount];
-            answers[0] = 6;
-            answers[1] = 9;
-            answers[2] = 25;
-            answers[3] = 60;
-            answers[4] = 2;
-            return answers;
-        }
+            static int[] GetAnswers(int questionCount)
+            {
+                int[] answers = new int[questionCount];
+                answers[0] = 6;
+                answers[1] = 9;
+                answers[2] = 25;
+                answers[3] = 60;
+                answers[4] = 2;
+                return answers;
+            }
 
-        static string[] GetQuestions(int questionCount)
-        {
-            string[] questions = new string[questionCount];
-            questions[0] = "Сколько будет два плюс два умноженное на два?";
-            questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
-            questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
-            questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
-            questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
-            return questions;
+            static string[] GetQuestions(int questionCount)
+            {
+                string[] questions = new string[questionCount];
+                questions[0] = "Сколько будет два плюс два умноженное на два?";
+                questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
+                questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
+                questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
+                questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
+                return questions;
+            }
         }
     }
-}
