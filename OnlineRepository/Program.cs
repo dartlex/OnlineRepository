@@ -7,6 +7,8 @@
             //комментарий
             Console.WriteLine("Я что-то изменил в программе");
             Console.WriteLine(Console.ReadLine());
+            Console.WriteLine("Создал свою ветку Ivan_main");
+
         }
     }
 }
