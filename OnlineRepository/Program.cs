@@ -53,8 +53,8 @@
                 }
 
                 Console.WriteLine("Количество правильных ответов: " + correctAnswersCount);
-                string[] diagnoses = GetDiagnoses();
-                Console.WriteLine($"{userName}, Ваш диагноз:" + diagnoses[correctAnswersCount]);
+                string diagnoses = GetDiagnoses(correctAnswersCount, answers.Length);
+                Console.WriteLine($"{userName}, Ваш диагноз: {diagnoses}");
 
                 var userChoise = GetUserChoice("Хотите начать сначала?");
                 if (!userChoise)
@@ -100,18 +100,24 @@
                 }
             }
         }
-        static string[] GetDiagnoses()
+        static string GetDiagnoses(int correctAnswers, int total)
         {
-            string[] diagnoses =
-            [
-                "Идиот",
-                "Кретин",
-                "Дурак",
-                "Нормальный",
-                "Талант",
-                "Гений"
-            ];
-            return diagnoses;
+            double percentRight = (double)correctAnswers / total * 100;
+            switch (percentRight)
+            {
+                case < 16: return "Идиот";
+                    break;
+                case >= 17 and <= 33: return "Кретин";
+                    break;
+                case >= 34 and <= 50: return "Дурак";
+                    break;
+                case >= 51 and <= 66: return "Нормальный";
+                    break;
+                case >= 67 and <= 83: return "Талант";
+                    break;
+                default: return "Гений";
+                    break;
+            }
         }
 
         static int[] GetAnswers(int questionCount)
