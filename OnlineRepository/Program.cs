@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            //комментарий
             Console.WriteLine("Я что-то изменил в программе");
             Console.WriteLine(Console.ReadLine());
         }
