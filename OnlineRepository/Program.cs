@@ -39,7 +39,13 @@
                         Console.WriteLine("Вопрос №" + (i + 1));
                         Console.WriteLine(questions[i]);
 
-                        int userAnswer = Convert.ToInt32(Console.ReadLine());
+                        int userAnswer;
+
+                        while(int.TryParse(Console.ReadLine(), out userAnswer) == false)
+                        {
+                            Console.WriteLine("Введите число!");
+                        }
+
 
                         int rightAnswer = answers[i];
 
