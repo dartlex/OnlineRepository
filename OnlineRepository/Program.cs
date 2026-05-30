@@ -1,4 +1,6 @@
-﻿namespace GeniyIdiotConsoleApp
+﻿using System.Text;
+
+namespace GeniyIdiotConsoleApp
 {
     class Program
     {
@@ -7,46 +9,59 @@
             while (true)
             {
                 Console.WriteLine($"Здравствуйте! Как вас зовут?");
-                string userName = Console.ReadLine();
+                var userName = Console.ReadLine();
+                var user = new User(userName);
 
-                int questionsCount = 5;
-                string[] questions = GetQuestions(questionsCount);
-                int[] answers = GetAnswers(questionsCount);
+                var questions = QuestionsStorage.GetAll();
+                var questionsCount = questions.Count;
 
-                int correctAnswersCount = 0;
-
-                Random random = new Random();
-                for (int i = questionsCount - 1; i > 0; i--)
-                {
-                    int index = random.Next(0, i);
-                    string tempQuestion = questions[index];
-                    questions[index] = questions[i];
-                    questions[i] = tempQuestion;
-
-                    int tempAnswers = answers[index];
-                    answers[index] = answers[i];
-                    answers[i] = tempAnswers;
-                }
+                var random = new Random();
 
                 for (int i = 0; i < questionsCount; i++)
                 {
                     Console.WriteLine("Вопрос №" + (i + 1));
-                    Console.WriteLine(questions[i]);
-                    int userAnswer = GetUserAnswer();
+                    var randomQuestionIndex = random.Next(0, questions.Count);
+                    Console.WriteLine(questions[randomQuestionIndex].Text);
+                    var userAnswer = GetNumber();
 
-                    int rightAnswer = answers[i];
+                    var rightAnswer = questions[randomQuestionIndex].Answer;
 
                     if (userAnswer == rightAnswer)
                     {
-                        correctAnswersCount++;
+                        user.AcceptRightAnswer();
                     }
+
+                    questions.RemoveAt(randomQuestionIndex);
                 }
 
-                Console.WriteLine("Количество правильных ответов: " + correctAnswersCount);
-                string[] diagnoses = GetDiagnoses();
-                Console.WriteLine($"{userName}, Ваш диагноз:" + diagnoses[correctAnswersCount]);
+                Console.WriteLine("Количество правильных ответов: " + user.CountRightAnswers);
 
-                var userChoise = GetUserChoice("Хотите начать сначала?");
+                var diagnose = CalculateDiagnose(questionsCount, user.CountRightAnswers);
+                user.Diagnose = diagnose;
+
+                Console.WriteLine($"{userName}, Ваш диагноз:" + diagnose);
+
+                UserResultStorage.Save(user);
+
+                var userChoise = GetUserChoice("Хотите посмотреть предыдущие результаты игры?");
+                if (userChoise)
+                {
+                    ShowUserResults();
+                }
+
+                userChoise = GetUserChoice("Хотите добавить новый вопрос?");
+                if (userChoise)
+                {
+                    AddNewQuestion();
+                }
+
+                userChoise = GetUserChoice("Хотите удалить существующй вопрос?");
+                if (userChoise)
+                {
+                    RemoveQuestion();
+                }
+
+                userChoise = GetUserChoice("Хотите начать сначала?");
                 if (!userChoise)
                 {
                     break;
@@ -54,7 +69,59 @@
             }
         }
 
-        private static int GetUserAnswer()
+        static void RemoveQuestion()
+        {
+            Console.WriteLine("Введите номер вопроса, который хотите удалить");
+            var questions = QuestionsStorage.GetAll();
+            for (int i = 0; i < questions.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {questions[i].Text}");
+            }
+            var removeQuestionNumber = GetNumber();
+            while (removeQuestionNumber < 1 || removeQuestionNumber > questions.Count)
+            {
+                Console.WriteLine("Введите число от 1 до " + questions.Count);
+                removeQuestionNumber = GetNumber();
+            }
+            var removeQuestion = questions[removeQuestionNumber - 1];
+            QuestionsStorage.Remove(removeQuestion);
+        }
+
+        static void AddNewQuestion()
+        {
+            Console.WriteLine("Введите текст вопроса");
+            var text = Console.ReadLine();
+            Console.WriteLine("Введите ответа на вопрос");
+            var answer = GetNumber();
+
+            var newQuestion = new Question(text, answer);
+            QuestionsStorage.Add(newQuestion);
+        }
+
+        private static void ShowUserResults()
+        {
+            var result = UserResultStorage.GetUserResults();
+            Console.WriteLine("{0,-20} {1,18} {2,15}", "Имя", "Кол-во правильных ответов", "Диагноз");
+            foreach (var user in result)
+            {
+                Console.WriteLine("{0,-20}{1,18}{2,15}", user.Name, user.CountRightAnswers, user.Diagnose);
+            }
+        }
+
+        
+
+        
+
+        static string CalculateDiagnose(int questionsCount, int correctAnswersCount)
+        {
+            var diagnoses = GetDiagnoses();
+
+            var percentRightAnswers = correctAnswersCount * 100 / questionsCount;
+
+            return diagnoses[percentRightAnswers / 20];
+        }
+
+        private static int GetNumber()
         {
             while (true)
             {
@@ -92,38 +159,14 @@
         }
         static string[] GetDiagnoses()
         {
-            string[] diagnoses =
-            [
-                "Идиот",
-                "Кретин",
-                "Дурак",
-                "Нормальный",
-                "Талант",
-                "Гений"
-            ];
+            var diagnoses = new string[6];
+            diagnoses[0] = "Кретин";
+            diagnoses[1] = "Идиот";
+            diagnoses[2] = "Дурак";
+            diagnoses[3] = "Нормальный";
+            diagnoses[4] = "Талант";
+            diagnoses[5] = "Гений";
             return diagnoses;
-        }
-
-        static int[] GetAnswers(int questionCount)
-        {
-            int[] answers = new int[questionCount];
-            answers[0] = 6;
-            answers[1] = 9;
-            answers[2] = 25;
-            answers[3] = 60;
-            answers[4] = 2;
-            return answers;
-        }
-
-        static string[] GetQuestions(int questionCount)
-        {
-            string[] questions = new string[questionCount];
-            questions[0] = "Сколько будет два плюс два умноженное на два?";
-            questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
-            questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
-            questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
-            questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
-            return questions;
         }
     }
 }
