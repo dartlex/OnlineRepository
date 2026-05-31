@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="OnlineRepository/OnlineRepository.csproj" />
+  <Project Path="WinFormsApp/WinFormsApp.csproj" Id="6880740c-8b11-4c52-8d50-73a18b0f6f45" />
 </Solution>

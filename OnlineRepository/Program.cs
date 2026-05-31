@@ -2,7 +2,7 @@
 
 namespace GeniyIdiotConsoleApp
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
@@ -108,19 +108,6 @@ namespace GeniyIdiotConsoleApp
             }
         }
 
-        
-
-        
-
-        static string CalculateDiagnose(int questionsCount, int correctAnswersCount)
-        {
-            var diagnoses = GetDiagnoses();
-
-            var percentRightAnswers = correctAnswersCount * 100 / questionsCount;
-
-            return diagnoses[percentRightAnswers / 20];
-        }
-
         private static int GetNumber()
         {
             while (true)
@@ -156,17 +143,6 @@ namespace GeniyIdiotConsoleApp
                     return true;
                 }
             }
-        }
-        static string[] GetDiagnoses()
-        {
-            var diagnoses = new string[6];
-            diagnoses[0] = "Кретин";
-            diagnoses[1] = "Идиот";
-            diagnoses[2] = "Дурак";
-            diagnoses[3] = "Нормальный";
-            diagnoses[4] = "Талант";
-            diagnoses[5] = "Гений";
-            return diagnoses;
         }
     }
 }

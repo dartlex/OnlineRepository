@@ -5,15 +5,16 @@ namespace GeniyIdiotConsoleApp
 {
     public class UserResultStorage
     {
+        private static string path = "userResults.txt";
         public static void Save(User user)
         {
             var value = $"{user.Name}#{user.CountRightAnswers}#{user.Diagnose}";
-            FileProvider.Append("userResults.txt", value);
+            FileProvider.Append(path, value);
         }
 
         public static List<User> GetUserResults()
         {
-            var value = FileProvider.GetValue("userResults.txt");
+            var value = FileProvider.GetValue(path);
             var lines = value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var results = new List<User>();
             foreach (var line in lines)
