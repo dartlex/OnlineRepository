@@ -54,11 +54,11 @@
             // questionNumberLabel
             // 
             questionNumberLabel.AutoSize = true;
-            questionNumberLabel.Font = new Font("Segoe UI", 16.2F);
-            questionNumberLabel.Location = new Point(29, 41);
+            questionNumberLabel.Font = new Font("Segoe UI", 14F);
+            questionNumberLabel.Location = new Point(30, 61);
             questionNumberLabel.Margin = new Padding(4, 0, 4, 0);
             questionNumberLabel.Name = "questionNumberLabel";
-            questionNumberLabel.Size = new Size(194, 45);
+            questionNumberLabel.Size = new Size(164, 38);
             questionNumberLabel.TabIndex = 1;
             questionNumberLabel.Text = "Вопрос №1";
             // 
@@ -88,7 +88,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(656, 33);
+            toolStrip1.Size = new Size(1152, 33);
             toolStrip1.TabIndex = 4;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -114,7 +114,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(656, 614);
+            ClientSize = new Size(1152, 614);
             Controls.Add(RestartButton);
             Controls.Add(toolStrip1);
             Controls.Add(userAnswerTextBox);

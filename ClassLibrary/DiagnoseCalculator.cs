@@ -11,7 +11,7 @@ namespace ClassLibrary
 
             var percentRightAnswers = user.CountRightAnswers * 100 / countQuestions;
 
-            return user.Name + ", Ваш диагноз " + diagnoses[percentRightAnswers / 20];
+            return diagnoses[percentRightAnswers / 20];
         }
         public static string[] GetDiagnoses()
         {

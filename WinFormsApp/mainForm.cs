@@ -16,9 +16,11 @@ namespace WinFormsApp
         }
         private void mainForm_Load(object sender, EventArgs e)
         {
+            var welcomeForm = new WelcomeForm ();
+            welcomeForm.ShowDialog();
+            user = new User(welcomeForm.userNameTextBox.Text);
             questions = QuestionsStorage.GetAll();
             countQuestions = questions.Count;
-            user = new User("Неизвестно");
             questionNumber = 0;
             ShowNextQuestion();
         }
@@ -48,10 +50,12 @@ namespace WinFormsApp
             if (endGame)
             {
                 var diagnose = DiagnoseCalculator.Calculate(countQuestions, user);
-                MessageBox.Show(diagnose);
+                user.Diagnose = diagnose;
+                UserResultStorage.Save(user);
+                MessageBox.Show($"{user.Name}, Ваш диагноз {diagnose}");
                 return;
             }
-
+            userAnswerTextBox.Text = string.Empty;
             ShowNextQuestion();
         }
     }
