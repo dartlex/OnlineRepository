@@ -8,6 +8,7 @@ namespace WinFormsApp
         private List<Question> questions;
         private Question currentQuestion;
         private int countQuestions;
+        private int questionNumber;
         private User user;
         public mainForm()
         {
@@ -25,6 +26,7 @@ namespace WinFormsApp
             questions = QuestionsStorage.GetAll();
             countQuestions = questions.Count;
             user = new User("Неизвестно");
+            questionNumber = 0;
             ShowNextQuestion();
         }
 
@@ -34,6 +36,8 @@ namespace WinFormsApp
             var randomQuestionIndex = random.Next(0, questions.Count);
             currentQuestion = questions[randomQuestionIndex];
             questionTextLabel.Text = currentQuestion.Text;
+            questionNumber++;
+            questionNumberLabel.Text = "Вопрос №" + questionNumber;
         }
 
         private void nextButton_Click(object sender, EventArgs e)
@@ -51,11 +55,10 @@ namespace WinFormsApp
             if (endGame)
             {
                 var diagnose = DiagnoseCalculator.Calculate(countQuestions, user);
-                user.Diagnose = diagnose;
-
-                MessageBox.Show($"{user.Name}, Ваш диагноз:" + diagnose);
+                MessageBox.Show(diagnose);
                 return;
             }
+
             ShowNextQuestion();
         }
     }

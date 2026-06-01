@@ -36,7 +36,7 @@ namespace GeniyIdiotConsoleApp
 
                 Console.WriteLine("Количество правильных ответов: " + user.CountRightAnswers);
 
-                var diagnose = CalculateDiagnose(questionsCount, user.CountRightAnswers);
+                var diagnose = DiagnoseCalculator.Calculate(questionsCount, user);
                 user.Diagnose = diagnose;
 
                 Console.WriteLine($"{userName}, Ваш диагноз:" + diagnose);
