@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using ClassLibrary;
+using System.Text;
 
 namespace GeniyIdiotConsoleApp
 {

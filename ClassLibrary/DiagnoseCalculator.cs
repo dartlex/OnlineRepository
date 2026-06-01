@@ -1,7 +1,7 @@
 ﻿using System.IO.Enumeration;
 using System.Text;
 
-namespace GeniyIdiotConsoleApp
+namespace ClassLibrary
 {
     public class DiagnoseCalculator
     {

@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp
 {
-    partial class mainForm
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,17 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             nextButton = new Button();
             questionNumberLabel = new Label();
             questionTextLabel = new Label();
             userAnswerTextBox = new TextBox();
+            toolStrip1 = new ToolStrip();
+            toolStripButton1 = new ToolStripButton();
+            RestartButton = new Button();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // nextButton
             // 
             nextButton.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 204);
             nextButton.Location = new Point(171, 474);
-            nextButton.Margin = new Padding(4, 4, 4, 4);
+            nextButton.Margin = new Padding(4);
             nextButton.Name = "nextButton";
             nextButton.Size = new Size(320, 99);
             nextButton.TabIndex = 0;
@@ -67,30 +72,61 @@
             questionTextLabel.Size = new Size(172, 32);
             questionTextLabel.TabIndex = 2;
             questionTextLabel.Text = "Текст вопроса";
-            questionTextLabel.Click += questionTextLabel_Click;
             // 
             // userAnswerTextBox
             // 
             userAnswerTextBox.Font = new Font("Segoe UI", 16.2F);
             userAnswerTextBox.Location = new Point(29, 325);
-            userAnswerTextBox.Margin = new Padding(4, 4, 4, 4);
+            userAnswerTextBox.Margin = new Padding(4);
             userAnswerTextBox.Name = "userAnswerTextBox";
             userAnswerTextBox.Size = new Size(319, 51);
             userAnswerTextBox.TabIndex = 3;
             // 
-            // mainForm
+            // toolStrip1
+            // 
+            toolStrip1.ImageScalingSize = new Size(24, 24);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(656, 33);
+            toolStrip1.TabIndex = 4;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(34, 28);
+            toolStripButton1.Text = "toolStripButton1";
+            // 
+            // RestartButton
+            // 
+            RestartButton.Location = new Point(29, 474);
+            RestartButton.Name = "RestartButton";
+            RestartButton.Size = new Size(118, 99);
+            RestartButton.TabIndex = 5;
+            RestartButton.Text = "Начать заново";
+            RestartButton.UseVisualStyleBackColor = true;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(656, 614);
+            Controls.Add(RestartButton);
+            Controls.Add(toolStrip1);
             Controls.Add(userAnswerTextBox);
             Controls.Add(questionTextLabel);
             Controls.Add(questionNumberLabel);
             Controls.Add(nextButton);
-            Margin = new Padding(4, 4, 4, 4);
-            Name = "mainForm";
+            Margin = new Padding(4);
+            Name = "MainForm";
             Text = "Гений-Идиот";
             Load += mainForm_Load;
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -101,5 +137,8 @@
         private Label questionNumberLabel;
         private Label questionTextLabel;
         private TextBox userAnswerTextBox;
+        private ToolStrip toolStrip1;
+        private ToolStripButton toolStripButton1;
+        private Button RestartButton;
     }
 }

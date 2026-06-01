@@ -1,26 +1,19 @@
-using GeniyIdiotConsoleApp;
+using ClassLibrary;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WinFormsApp
 {
-    public partial class mainForm : Form
+    public partial class MainForm : Form
     {
         private List<Question> questions;
         private Question currentQuestion;
         private int countQuestions;
         private int questionNumber;
         private User user;
-        public mainForm()
+        public MainForm()
         {
             InitializeComponent();
         }
-
-        private void questionTextLabel_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
         private void mainForm_Load(object sender, EventArgs e)
         {
             questions = QuestionsStorage.GetAll();

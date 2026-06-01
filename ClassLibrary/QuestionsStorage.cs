@@ -1,4 +1,4 @@
-﻿namespace GeniyIdiotConsoleApp
+﻿namespace ClassLibrary
 {
     public class QuestionsStorage
     {
