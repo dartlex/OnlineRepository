@@ -16,7 +16,7 @@ namespace WinFormsApp
         }
         private void mainForm_Load(object sender, EventArgs e)
         {
-            var welcomeForm = new WelcomeForm ();
+            var welcomeForm = new WelcomeForm();
             welcomeForm.ShowDialog();
             user = new User(welcomeForm.userNameTextBox.Text);
             questions = QuestionsStorage.GetAll();
@@ -57,6 +57,22 @@ namespace WinFormsApp
             }
             userAnswerTextBox.Text = string.Empty;
             ShowNextQuestion();
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void рестартToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void показатьПредыдущиеРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var resultsForm = new ResultForm();
+            resultsForm.ShowDialog();
         }
     }
 }

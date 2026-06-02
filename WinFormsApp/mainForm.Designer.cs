@@ -35,8 +35,13 @@
             userAnswerTextBox = new TextBox();
             toolStrip1 = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
-            RestartButton = new Button();
+            menuStrip1 = new MenuStrip();
+            файлToolStripMenuItem = new ToolStripMenuItem();
+            показатьПредыдущиеРезультатыToolStripMenuItem = new ToolStripMenuItem();
+            рестартToolStripMenuItem = new ToolStripMenuItem();
+            выходToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // nextButton
@@ -86,7 +91,7 @@
             // 
             toolStrip1.ImageScalingSize = new Size(24, 24);
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
-            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Location = new Point(0, 33);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1152, 33);
             toolStrip1.TabIndex = 4;
@@ -101,32 +106,64 @@
             toolStripButton1.Size = new Size(34, 28);
             toolStripButton1.Text = "toolStripButton1";
             // 
-            // RestartButton
+            // menuStrip1
             // 
-            RestartButton.Location = new Point(29, 474);
-            RestartButton.Name = "RestartButton";
-            RestartButton.Size = new Size(118, 99);
-            RestartButton.TabIndex = 5;
-            RestartButton.Text = "Начать заново";
-            RestartButton.UseVisualStyleBackColor = true;
+            menuStrip1.ImageScalingSize = new Size(24, 24);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1152, 33);
+            menuStrip1.TabIndex = 6;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            файлToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { показатьПредыдущиеРезультатыToolStripMenuItem, рестартToolStripMenuItem, выходToolStripMenuItem });
+            файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            файлToolStripMenuItem.Size = new Size(69, 29);
+            файлToolStripMenuItem.Text = "Файл";
+            // 
+            // показатьПредыдущиеРезультатыToolStripMenuItem
+            // 
+            показатьПредыдущиеРезультатыToolStripMenuItem.Name = "показатьПредыдущиеРезультатыToolStripMenuItem";
+            показатьПредыдущиеРезультатыToolStripMenuItem.Size = new Size(396, 34);
+            показатьПредыдущиеРезультатыToolStripMenuItem.Text = "Показать предыдущие результаты";
+            показатьПредыдущиеРезультатыToolStripMenuItem.Click += показатьПредыдущиеРезультатыToolStripMenuItem_Click;
+            // 
+            // рестартToolStripMenuItem
+            // 
+            рестартToolStripMenuItem.Name = "рестартToolStripMenuItem";
+            рестартToolStripMenuItem.Size = new Size(396, 34);
+            рестартToolStripMenuItem.Text = "Рестарт";
+            рестартToolStripMenuItem.Click += рестартToolStripMenuItem_Click;
+            // 
+            // выходToolStripMenuItem
+            // 
+            выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            выходToolStripMenuItem.Size = new Size(396, 34);
+            выходToolStripMenuItem.Text = "Выход";
+            выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1152, 614);
-            Controls.Add(RestartButton);
             Controls.Add(toolStrip1);
+            Controls.Add(menuStrip1);
             Controls.Add(userAnswerTextBox);
             Controls.Add(questionTextLabel);
             Controls.Add(questionNumberLabel);
             Controls.Add(nextButton);
+            MainMenuStrip = menuStrip1;
             Margin = new Padding(4);
             Name = "MainForm";
             Text = "Гений-Идиот";
             Load += mainForm_Load;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,6 +176,10 @@
         private TextBox userAnswerTextBox;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButton1;
-        private Button RestartButton;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem файлToolStripMenuItem;
+        private ToolStripMenuItem показатьПредыдущиеРезультатыToolStripMenuItem;
+        private ToolStripMenuItem рестартToolStripMenuItem;
+        private ToolStripMenuItem выходToolStripMenuItem;
     }
 }
