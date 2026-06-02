@@ -1,37 +1,41 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Text.Json.Nodes;
 
 namespace ClassLibrary
 {
     public class UserResultStorage
     {
-        private static string path = "userResults.txt";
-        public static void Save(User user)
+        private static string path = "userResults.json";
+        public static void Append(User user)
         {
-            var value = $"{user.Name}#{user.CountRightAnswers}#{user.Diagnose}";
-            FileProvider.Append(path, value);
+            var usersResults = GetUserResults();
+            usersResults.Add(user);
+            Save(usersResults);
         }
+
 
         public static List<User> GetUserResults()
         {
-            var value = FileProvider.GetValue(path);
-            var lines = value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var results = new List<User>();
-            foreach (var line in lines)
+            if (!FileProvider.Exists(path))
             {
-                var values = line.Split("#");
-                var name = values[0];
-                var countRightAnswers = Convert.ToInt32(values[1]);
-                var diagnose = values[2];
-                var user = new User(name);
-                user.CountRightAnswers = countRightAnswers;
-                user.Diagnose = diagnose;
-                results.Add(user);
+                return new List<User>();
             }
-            return results;
+            var value = FileProvider.GetValue(path);
+            var userResults = JsonConvert.DeserializeObject<List<User>>(value);
+            return userResults;
+
         }
 
-        
+        public static void Save(List<User> userResults)
+        {
+            var jsonData = JsonConvert.SerializeObject(userResults, Formatting.Indented);
+            FileProvider.Replace(path, jsonData);
+        }
+
+
     }
 }
 

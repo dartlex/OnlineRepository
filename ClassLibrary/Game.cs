@@ -56,7 +56,7 @@ namespace ClassLibrary
         {
             var diagnose = DiagnoseCalculator.Calculate(countQuestions, user);
             user.Diagnose = diagnose;
-            UserResultStorage.Save(user);
+            UserResultStorage.Append(user);
 
             return user.Name + ", Ваш диагноз: " + user.Diagnose;
         }
