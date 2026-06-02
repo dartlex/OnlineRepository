@@ -5,11 +5,7 @@ namespace WinFormsApp
 {
     public partial class MainForm : Form
     {
-        private List<Question> questions;
-        private Question currentQuestion;
-        private int countQuestions;
-        private int questionNumber;
-        private User user;
+        Game game;
         public MainForm()
         {
             InitializeComponent();
@@ -18,45 +14,37 @@ namespace WinFormsApp
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.ShowDialog();
-            user = new User(welcomeForm.userNameTextBox.Text);
-            questions = QuestionsStorage.GetAll();
-            countQuestions = questions.Count;
-            questionNumber = 0;
+            var user = new User(welcomeForm.userNameTextBox.Text);
+            game = new Game(user); 
             ShowNextQuestion();
         }
 
         private void ShowNextQuestion()
         {
-            var random = new Random();
-            var randomQuestionIndex = random.Next(0, questions.Count);
-            currentQuestion = questions[randomQuestionIndex];
+            var currentQuestion = game.GetNextQuestion();
             questionTextLabel.Text = currentQuestion.Text;
-            questionNumber++;
-            questionNumberLabel.Text = "Вопрос №" + questionNumber;
+            questionNumberLabel.Text = game.GetQuestionNumberText();
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            var userAnswer = Convert.ToInt32(userAnswerTextBox.Text);
-            var rightAnswer = currentQuestion.Answer;
-
-            if (userAnswer == rightAnswer)
+            var parsed = InputValidator.TryParseToNumber(userAnswerTextBox.Text, out int userAnswer, out string errorMessage);
+            if (!parsed)
             {
-                user.AcceptRightAnswer();
+                MessageBox.Show(errorMessage);
             }
-
-            questions.Remove(currentQuestion);
-            var endGame = questions.Count == 0;
-            if (endGame)
+            else
             {
-                var diagnose = DiagnoseCalculator.Calculate(countQuestions, user);
-                user.Diagnose = diagnose;
-                UserResultStorage.Save(user);
-                MessageBox.Show($"{user.Name}, Ваш диагноз {diagnose}");
-                return;
+                game.AcceptAnswer(userAnswer);
+                if (game.End())
+                {
+                    var message = game.CalculateDiagnose();
+                    MessageBox.Show(message);
+                    return;
+                }
+                userAnswerTextBox.Text = string.Empty;
+                ShowNextQuestion();
             }
-            userAnswerTextBox.Text = string.Empty;
-            ShowNextQuestion();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
