@@ -37,10 +37,9 @@ namespace ClassLibrary
 
         public static void Add(Question newQuestion)
         {
-            var jsonData = JsonConvert.SerializeObject(userResults, Formatting.Indented);
-            FileProvider.Replace(path, jsonData);
-            var value = JsonConvert.SerializeObject<List<Question>>();
-            FileProvider.Append("questions.txt", value);
+            var questions = GetAll(); 
+            questions.Add(newQuestion);
+            SaveQuestions(questions);
         }
 
         public static void Remove(Question removeQuestion)
@@ -54,7 +53,6 @@ namespace ClassLibrary
                     break;
                 }
             }
-            FileProvider.Clear("questions.txt");
             SaveQuestions(questions);
         }
     }
