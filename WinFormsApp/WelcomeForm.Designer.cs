@@ -32,6 +32,8 @@
             label2 = new Label();
             userNameTextBox = new TextBox();
             startButton = new Button();
+            ShowQuestionsButton = new Button();
+            showResultsButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -61,7 +63,7 @@
             // 
             // startButton
             // 
-            startButton.Location = new Point(123, 225);
+            startButton.Location = new Point(123, 192);
             startButton.Name = "startButton";
             startButton.Size = new Size(299, 66);
             startButton.TabIndex = 3;
@@ -69,16 +71,39 @@
             startButton.UseVisualStyleBackColor = true;
             startButton.Click += startButton_Click;
             // 
+            // ShowQuestionsButton
+            // 
+            ShowQuestionsButton.Location = new Point(123, 279);
+            ShowQuestionsButton.Name = "ShowQuestionsButton";
+            ShowQuestionsButton.Size = new Size(299, 56);
+            ShowQuestionsButton.TabIndex = 4;
+            ShowQuestionsButton.Text = "Показать вопросы";
+            ShowQuestionsButton.UseVisualStyleBackColor = true;
+            ShowQuestionsButton.Click += ShowQuestionsButton_Click;
+            // 
+            // showResultsButton
+            // 
+            showResultsButton.Location = new Point(123, 356);
+            showResultsButton.Name = "showResultsButton";
+            showResultsButton.Size = new Size(299, 56);
+            showResultsButton.TabIndex = 5;
+            showResultsButton.Text = "Показать результаты";
+            showResultsButton.UseVisualStyleBackColor = true;
+            showResultsButton.Click += showResultsButton_Click;
+            // 
             // WelcomeForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(551, 443);
+            Controls.Add(showResultsButton);
+            Controls.Add(ShowQuestionsButton);
             Controls.Add(startButton);
             Controls.Add(userNameTextBox);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "WelcomeForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "WelcomeForm";
             ResumeLayout(false);
             PerformLayout();
@@ -90,5 +115,7 @@
         private Label label2;
         public TextBox userNameTextBox;
         private Button startButton;
+        private Button ShowQuestionsButton;
+        private Button showResultsButton;
     }
 }

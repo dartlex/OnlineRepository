@@ -44,6 +44,7 @@ namespace ClassLibrary
 
         public static void Remove(Question removeQuestion)
         {
+            if (removeQuestion == null) return;
             var questions = GetAll();
             for (int i = 0; i < questions.Count; i++)
             {

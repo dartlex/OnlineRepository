@@ -17,7 +17,21 @@ namespace WinFormsApp
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void ShowQuestionsButton_Click(object sender, EventArgs e)
+        {
+            var questionsForm = new QuestionsForm();
+            questionsForm.ShowDialog();
+        }
+
+        private void showResultsButton_Click(object sender, EventArgs e)
+        {
+            var resultsForm = new ResultForm();
+            resultsForm.ShowDialog();
+        }
+
     }
 }

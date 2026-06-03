@@ -18,6 +18,8 @@ namespace WinFormsApp
 
         private void ResultForm_Load(object sender, EventArgs e)
         {
+            resultsDataGridView.AllowUserToAddRows = false;
+
             var results = UserResultStorage.GetUserResults();
             foreach (var result in results)
             {

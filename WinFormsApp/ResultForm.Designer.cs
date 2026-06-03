@@ -41,6 +41,7 @@
             resultsDataGridView.Columns.AddRange(new DataGridViewColumn[] { UserNameColumn, CountRightAnswersColumn, DiagnoseColumn });
             resultsDataGridView.Location = new Point(12, 2);
             resultsDataGridView.Name = "resultsDataGridView";
+            resultsDataGridView.ReadOnly = true;
             resultsDataGridView.RowHeadersWidth = 62;
             resultsDataGridView.Size = new Size(509, 401);
             resultsDataGridView.TabIndex = 0;
@@ -50,6 +51,7 @@
             UserNameColumn.HeaderText = "Имя";
             UserNameColumn.MinimumWidth = 8;
             UserNameColumn.Name = "UserNameColumn";
+            UserNameColumn.ReadOnly = true;
             UserNameColumn.Width = 150;
             // 
             // CountRightAnswersColumn
@@ -57,6 +59,7 @@
             CountRightAnswersColumn.HeaderText = "Кол-во правильных ответов";
             CountRightAnswersColumn.MinimumWidth = 8;
             CountRightAnswersColumn.Name = "CountRightAnswersColumn";
+            CountRightAnswersColumn.ReadOnly = true;
             CountRightAnswersColumn.Width = 150;
             // 
             // DiagnoseColumn
@@ -64,6 +67,7 @@
             DiagnoseColumn.HeaderText = "Диагноз";
             DiagnoseColumn.MinimumWidth = 8;
             DiagnoseColumn.Name = "DiagnoseColumn";
+            DiagnoseColumn.ReadOnly = true;
             DiagnoseColumn.Width = 150;
             // 
             // ResultForm
@@ -73,6 +77,7 @@
             ClientSize = new Size(521, 410);
             Controls.Add(resultsDataGridView);
             Name = "ResultForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ResultForm";
             Load += ResultForm_Load;
             ((System.ComponentModel.ISupportInitialize)resultsDataGridView).EndInit();

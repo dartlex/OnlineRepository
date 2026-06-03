@@ -37,9 +37,10 @@
             toolStripButton1 = new ToolStripButton();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
-            показатьПредыдущиеРезультатыToolStripMenuItem = new ToolStripMenuItem();
             рестартToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
+            TimeLiveLabel = new Label();
+            TimerLabel = new Label();
             toolStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -118,37 +119,51 @@
             // 
             // файлToolStripMenuItem
             // 
-            файлToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { показатьПредыдущиеРезультатыToolStripMenuItem, рестартToolStripMenuItem, выходToolStripMenuItem });
+            файлToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { рестартToolStripMenuItem, выходToolStripMenuItem });
             файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             файлToolStripMenuItem.Size = new Size(69, 29);
             файлToolStripMenuItem.Text = "Файл";
             // 
-            // показатьПредыдущиеРезультатыToolStripMenuItem
-            // 
-            показатьПредыдущиеРезультатыToolStripMenuItem.Name = "показатьПредыдущиеРезультатыToolStripMenuItem";
-            показатьПредыдущиеРезультатыToolStripMenuItem.Size = new Size(396, 34);
-            показатьПредыдущиеРезультатыToolStripMenuItem.Text = "Показать предыдущие результаты";
-            показатьПредыдущиеРезультатыToolStripMenuItem.Click += показатьПредыдущиеРезультатыToolStripMenuItem_Click;
-            // 
             // рестартToolStripMenuItem
             // 
             рестартToolStripMenuItem.Name = "рестартToolStripMenuItem";
-            рестартToolStripMenuItem.Size = new Size(396, 34);
+            рестартToolStripMenuItem.Size = new Size(270, 34);
             рестартToolStripMenuItem.Text = "Рестарт";
             рестартToolStripMenuItem.Click += рестартToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(396, 34);
+            выходToolStripMenuItem.Size = new Size(270, 34);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
+            // 
+            // TimeLiveLabel
+            // 
+            TimeLiveLabel.AutoSize = true;
+            TimeLiveLabel.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            TimeLiveLabel.Location = new Point(504, 333);
+            TimeLiveLabel.Name = "TimeLiveLabel";
+            TimeLiveLabel.Size = new Size(91, 38);
+            TimeLiveLabel.TabIndex = 7;
+            TimeLiveLabel.Text = "label1";
+            // 
+            // TimerLabel
+            // 
+            TimerLabel.AutoSize = true;
+            TimerLabel.Location = new Point(504, 289);
+            TimerLabel.Name = "TimerLabel";
+            TimerLabel.Size = new Size(137, 25);
+            TimerLabel.TabIndex = 8;
+            TimerLabel.Text = "Время на ответ";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1152, 614);
+            Controls.Add(TimerLabel);
+            Controls.Add(TimeLiveLabel);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
             Controls.Add(userAnswerTextBox);
@@ -158,6 +173,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4);
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Гений-Идиот";
             Load += mainForm_Load;
             toolStrip1.ResumeLayout(false);
@@ -178,8 +194,9 @@
         private ToolStripButton toolStripButton1;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem файлToolStripMenuItem;
-        private ToolStripMenuItem показатьПредыдущиеРезультатыToolStripMenuItem;
         private ToolStripMenuItem рестартToolStripMenuItem;
         private ToolStripMenuItem выходToolStripMenuItem;
+        private Label TimeLiveLabel;
+        private Label TimerLabel;
     }
 }
