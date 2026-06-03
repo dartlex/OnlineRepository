@@ -1,4 +1,6 @@
-﻿namespace ClassLibrary
+﻿using Newtonsoft.Json;
+
+namespace ClassLibrary
 {
     public class QuestionsStorage
     {
@@ -6,18 +8,14 @@
         {
             var questions = new List<Question>();
 
-            if (FileProvider.Exists("questions.txt"))
+            var path = "questions.json";
+
+
+            if (FileProvider.Exists(path))
             {
-                var value = FileProvider.GetValue("questions.txt");
-                var lines = value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                foreach (var line in lines)
-                {
-                    var values = line.Split("#");
-                    var text = values[0];
-                    var answer = Convert.ToInt32(values[1]);
-                    var question = new Question(text, answer);
-                    questions.Add(question);
-                }
+                var value = FileProvider.GetValue(path);
+                
+                questions = JsonConvert.DeserializeObject<List<Question>>(value) ?? questions;
             }
             else
             {
@@ -33,15 +31,15 @@
 
         private static void SaveQuestions(List<Question> questions)
         {
-            foreach (var question in questions)
-            {
-                Add(question);
-            }
+            var jsonData = JsonConvert.SerializeObject(questions, Formatting.Indented);
+            FileProvider.Replace("questions.json", jsonData);
         }
 
         public static void Add(Question newQuestion)
         {
-            var value = $"{newQuestion.Text}#{newQuestion.Answer}";
+            var jsonData = JsonConvert.SerializeObject(userResults, Formatting.Indented);
+            FileProvider.Replace(path, jsonData);
+            var value = JsonConvert.SerializeObject<List<Question>>();
             FileProvider.Append("questions.txt", value);
         }
 
