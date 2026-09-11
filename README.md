@@ -1,2 +1,2 @@
 # OnlineRepository
-My online repository for job and home
+Репозиторий для синхронизации наработок с двух компьютеров
